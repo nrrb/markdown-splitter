@@ -1,6 +1,6 @@
 {
   "name": "@beautifullife/markdown-splitter",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Split a Markdown file into multiple linked HTML files with navigation",
   "main": "md-splitter.js",
   "repository": {
@@ -18,7 +18,9 @@
     "md-split": "./cli.js"
   },
   "scripts": {
-    "test": "npm run test:clean && npm run test:split && npm run test:verify",
+    "test": "npm run test:unit && npm run test:integration",
+    "test:unit": "mocha test/test-code-blocks.js",
+    "test:integration": "npm run test:clean && npm run test:split && npm run test:verify",
     "test:clean": "rm -rf test-output",
     "test:split": "node -e \"require('./md-splitter.js').splitMarkdownToHtml('README.md', 'test-output', 'Documentation')\"",
     "test:verify": "test -f test-output/index.html && test -d test-output && find test-output -name '*.html' | grep -q ."
@@ -34,5 +36,9 @@
   "license": "MIT",
   "dependencies": {
     "marked": "^4.0.0"
+  },
+  "devDependencies": {
+    "jsdom": "^26.1.0",
+    "mocha": "^11.1.0"
   }
 }

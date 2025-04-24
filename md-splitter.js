@@ -5,9 +5,16 @@ const marked = require('marked');
 // Configure marked for code blocks
 marked.setOptions({
   highlight: function(code, lang) {
-    return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${code}</code></pre>`;
+    return code;
   }
 });
+
+// Configure marked renderer for code blocks
+const renderer = new marked.Renderer();
+renderer.code = function(code, lang) {
+  return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${code}</code></pre>`;
+};
+marked.use({ renderer });
 
 /**
  * Splits a Markdown file into multiple HTML files based on headers

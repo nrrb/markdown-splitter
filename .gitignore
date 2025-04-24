@@ -28,3 +28,4 @@ logs/
 # Tests
 test-output*/
 test.md
+test-docs*/
