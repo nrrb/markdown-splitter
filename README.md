@@ -2,6 +2,8 @@
 
 A tool that splits a Markdown file on header tags into a series of rendered HTML files. Each HTML file links to the previous and next file and includes a drop-down table of contents in the top menu bar.
 
+[![npm version](https://badge.fury.io/js/%40beautifullife%2Fmarkdown-splitter.svg)](https://www.npmjs.com/package/@beautifullife/markdown-splitter)
+
 ## Features
 
 - Split Markdown files into multiple HTML files based on heading tags
@@ -9,6 +11,9 @@ A tool that splits a Markdown file on header tags into a series of rendered HTML
   - Links to previous and next sections
   - A dropdown table of contents with links to all sections
   - Clean, responsive styling
+  - Syntax highlighting for code blocks (powered by Prism.js)
+  - Copy button for code blocks
+- Offline mode support (disable syntax highlighting for fully offline docs)
 - Automatic index.html that redirects to the first section
 
 ## Installation
@@ -50,9 +55,10 @@ Options:
 - `-o, --output <dir>`: Output directory for HTML files (default: "output-html")
 - `-t, --title <title>`: Base title for HTML documents (default: "Documentation")
 - `--no-syntax-highlight`: Disable syntax highlighting in code blocks (default: enabled)
-  - Note: When syntax highlighting is enabled (default), the generated HTML files will load Prism.js from a CDN
-  - Viewers will need an internet connection to see syntax highlighting
-  - Disable this option if you need the documentation to work completely offline
+  - When enabled (default), code blocks are syntax-highlighted using Prism.js loaded from a CDN
+  - Requires internet connection for viewers when enabled
+  - Disable this option for fully offline documentation
+  - Copy button functionality works in both modes
 - `-h, --help`: Show help information
 
 Example:
