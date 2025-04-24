@@ -1,6 +1,10 @@
 # Tests
-test-output/
+test-output*/
 test.md
+test/
+__tests__/
+*.test.js
+*.spec.js
 
 # Git files
 .git/

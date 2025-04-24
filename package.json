@@ -1,6 +1,6 @@
 {
   "name": "@beautifullife/markdown-splitter",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Split a Markdown file into multiple linked HTML files with navigation",
   "main": "md-splitter.js",
   "repository": {

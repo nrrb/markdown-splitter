@@ -2,6 +2,13 @@ const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
 
+// Configure marked for code blocks
+marked.setOptions({
+  highlight: function(code, lang) {
+    return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${code}</code></pre>`;
+  }
+});
+
 /**
  * Splits a Markdown file into multiple HTML files based on headers
  * Each HTML file includes a navigation menu with links to other sections
@@ -9,7 +16,7 @@ const marked = require('marked');
  * @param {string} outputDir - Directory to output HTML files
  * @param {string} baseTitle - Base title for HTML documents
  */
-function splitMarkdownToHtml(inputFile, outputDir, baseTitle) {
+function splitMarkdownToHtml(inputFile, outputDir, baseTitle, options = { syntaxHighlight: true }) {
   // Create output directory if it doesn't exist
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
@@ -64,7 +71,7 @@ function splitMarkdownToHtml(inputFile, outputDir, baseTitle) {
     const prevSection = index > 0 ? sections[index - 1] : null;
     const nextSection = index < sections.length - 1 ? sections[index + 1] : null;
     
-    const htmlContent = generateHtml(section, toc, prevSection, nextSection, baseTitle);
+    const htmlContent = generateHtml(section, toc, prevSection, nextSection, baseTitle, options);
     const outputFile = path.join(outputDir, `${section.id}.html`);
     fs.writeFileSync(outputFile, htmlContent);
   });
@@ -87,7 +94,7 @@ function splitMarkdownToHtml(inputFile, outputDir, baseTitle) {
  * @param {string} baseTitle - Base title for HTML documents
  * @returns {string} - HTML content
  */
-function generateHtml(section, toc, prevSection, nextSection, baseTitle) {
+function generateHtml(section, toc, prevSection, nextSection, baseTitle, options) {
   // Parse section content to HTML
   const sectionContent = marked.parser(section.content);
   

@@ -26,4 +26,5 @@ logs/
 *.log
 
 # Tests
-test-output/
+test-output*/
+test.md

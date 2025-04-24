@@ -34,7 +34,7 @@ A tool that splits a Markdown file on header tags into a series of rendered HTML
 ### Option 2: Install from npm
 
 ```
-npm install -g markdown-splitter
+npm install -g @beautifullife/markdown-splitter
 ```
 
 ## Usage
@@ -49,6 +49,10 @@ Options:
 - `-i, --input <file>`: Input Markdown file
 - `-o, --output <dir>`: Output directory for HTML files (default: "output-html")
 - `-t, --title <title>`: Base title for HTML documents (default: "Documentation")
+- `--no-syntax-highlight`: Disable syntax highlighting in code blocks (default: enabled)
+  - Note: When syntax highlighting is enabled (default), the generated HTML files will load Prism.js from a CDN
+  - Viewers will need an internet connection to see syntax highlighting
+  - Disable this option if you need the documentation to work completely offline
 - `-h, --help`: Show help information
 
 Example:
