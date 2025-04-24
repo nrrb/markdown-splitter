@@ -89,6 +89,12 @@ function splitMarkdownToHtml(inputFile, outputDir, baseTitle, options = { syntax
   if (sections.length > 0) {
     const indexHtml = generateIndexHtml(sections[0].id, baseTitle);
     fs.writeFileSync(path.join(outputDir, 'index.html'), indexHtml);
+
+    // Create a standalone toc.html file
+    const tocTemplate = fs.readFileSync(path.join(__dirname, 'templates', 'toc.html'), 'utf-8');
+    const currentId = null; // No current page in standalone TOC
+    const tocHtml = eval('`' + tocTemplate + '`'); // Using template literal to process the template
+    fs.writeFileSync(path.join(outputDir, 'toc.html'), tocHtml);
   }
 }
 

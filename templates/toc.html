@@ -1,4 +1,4 @@
 ${toc.map(item => {
-  const className = `toc-h${item.level}${item.id === currentId ? ' current-page' : ''}`;
+  const className = `toc-h${item.level}${currentId && item.id === currentId ? ' current-page' : ''}`;
   return `<a href="${item.id}.html" class="${className}">${item.title}</a>`;
 }).join('\n')}
