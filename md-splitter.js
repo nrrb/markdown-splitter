@@ -12,7 +12,14 @@ marked.setOptions({
 // Configure marked renderer for code blocks and section links
 const renderer = new marked.Renderer();
 renderer.code = function(code, lang) {
-  return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${code}</code></pre>`;
+  // Escape HTML content to display it as text
+  const escapedCode = code
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+  return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${escapedCode}</code></pre>`;
 };
 
 // Store the original link renderer

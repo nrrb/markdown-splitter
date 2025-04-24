@@ -90,6 +90,92 @@ After running the tool, you'll get:
 
 Open the `index.html` file in your browser to start browsing the documentation.
 
+## Testing Code Blocks
+
+HTML code blocks are properly escaped and displayed as text. For example:
+
+```html
+<!-- Navigation menu -->
+<nav class="main-nav">
+  <ul>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Dangerous HTML that will be safely escaped -->
+<script>
+  alert('This will not execute!');
+</script>
+<style>
+  body { background: red; }
+</style>
+```
+
+The HTML above will be displayed exactly as written, with all tags visible and properly escaped. No HTML will be interpreted or executed.
+
+Other language examples with syntax highlighting:
+
+```python
+# Python example
+class DocumentSplitter:
+    def __init__(self, input_file):
+        self.input_file = input_file
+        
+    def split_sections(self):
+        with open(self.input_file, 'r') as f:
+            content = f.read()
+        return [section for section in content.split('##')]
+```
+
+```javascript
+// JavaScript example
+class DocumentProcessor {
+  constructor(content) {
+    this.content = content;
+  }
+
+  async processMarkdown() {
+    const sections = this.content.split(/^##\s/m);
+    return sections.map(section => this.parseSection(section));
+  }
+}
+```
+
+```bash
+# Shell script example
+#!/bin/bash
+for file in *.md; do
+  echo "Processing $file..."
+  md-split --input "$file" --output "${file%.md}-html"
+  echo "Done!"
+done
+```
+
+```text
+Plain text example:
+-----------------
+This is just plain text
+without any special formatting
+or syntax highlighting.
+-------------------
+```
+
+```sql
+-- SQL example
+SELECT 
+  documents.title,
+  sections.heading,
+  sections.content
+FROM documents
+JOIN sections ON sections.document_id = documents.id
+WHERE documents.type = 'markdown'
+ORDER BY sections.position;
+```
+
+All code blocks above will be syntax-highlighted using Prism.js (when enabled) and include a copy button for easy copying.
+
 ## Requirements
 
 - Node.js 12.x or higher
