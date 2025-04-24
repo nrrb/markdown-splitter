@@ -1,0 +1,24 @@
+{
+  "name": "markdown-splitter",
+  "version": "1.0.0",
+  "description": "Split a Markdown file into multiple linked HTML files with navigation",
+  "main": "md-splitter.js",
+  "bin": {
+    "md-split": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markdown",
+    "html",
+    "converter",
+    "documentation",
+    "splitter"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "^4.0.0"
+  }
+}
