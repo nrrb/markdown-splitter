@@ -100,134 +100,9 @@ function generateHtml(section, toc, prevSection, nextSection, baseTitle) {
   // Generate TOC dropdown
   const tocHtml = generateTocDropdown(toc, section.id);
   
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${baseTitle} - ${section.title}</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 20px;
-      color: #333;
-    }
-    .navigation {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    .nav-link {
-      text-decoration: none;
-      color: #0366d6;
-    }
-    .nav-link:hover {
-      text-decoration: underline;
-    }
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #eee;
-    }
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .dropdown-button {
-      background-color: #0366d6;
-      color: white;
-      padding: 8px 16px;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 250px;
-      max-height: 70vh;
-      overflow-y: auto;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-      border-radius: 4px;
-    }
-    .dropdown-content a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-    }
-    .dropdown-content a:hover {
-      background-color: #f1f1f1;
-    }
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
-    .dropdown:hover .dropdown-button {
-      background-color: #0358c4;
-    }
-    .toc-h1 { padding-left: 10px; font-weight: bold; }
-    .toc-h2 { padding-left: 30px; }
-    .toc-h3 { padding-left: 50px; }
-    .toc-h4 { padding-left: 70px; }
-    .toc-h5 { padding-left: 90px; }
-    .toc-h6 { padding-left: 110px; }
-    .current-page { font-weight: bold; background-color: #edf7ff; }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 2em;
-      margin-bottom: 1em;
-    }
-    code {
-      background-color: #f6f8fa;
-      padding: 0.2em 0.4em;
-      border-radius: 3px;
-    }
-    pre {
-      background-color: #f6f8fa;
-      padding: 16px;
-      border-radius: 3px;
-      overflow: auto;
-    }
-    blockquote {
-      margin-left: 0;
-      padding-left: 1em;
-      border-left: 3px solid #eee;
-      color: #666;
-    }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <h1>${baseTitle}</h1>
-    <div class="dropdown">
-      <button class="dropdown-button">Table of Contents</button>
-      <div class="dropdown-content">
-        ${tocHtml}
-      </div>
-    </div>
-  </div>
-  
-  <div class="content">
-    ${sectionContent}
-  </div>
-  
-  <div class="navigation">
-    <div>${prevLink}</div>
-    <div>${nextLink}</div>
-  </div>
-  
-</body>
-</html>`;
+  // Load and process the section template
+  const template = fs.readFileSync(path.join(__dirname, 'templates', 'section.html'), 'utf-8');
+  return eval('`' + template + '`');
 }
 
 /**
@@ -237,10 +112,9 @@ function generateHtml(section, toc, prevSection, nextSection, baseTitle) {
  * @returns {string} - HTML content for TOC dropdown
  */
 function generateTocDropdown(toc, currentId) {
-  return toc.map(item => {
-    const currentClass = item.id === currentId ? 'current-page' : '';
-    return `<a href="${item.id}.html" class="toc-h${item.level} ${currentClass}">${item.title}</a>`;
-  }).join('\n');
+  // Load and process the TOC template
+  const template = fs.readFileSync(path.join(__dirname, 'templates', 'toc.html'), 'utf-8');
+  return eval('`' + template + '`');
 }
 
 /**
@@ -250,17 +124,9 @@ function generateTocDropdown(toc, currentId) {
  * @returns {string} - HTML content for index.html
  */
 function generateIndexHtml(firstSectionId, baseTitle) {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0;url=${firstSectionId}.html">
-  <title>${baseTitle}</title>
-</head>
-<body>
-  <p>Redirecting to <a href="${firstSectionId}.html">first section</a>...</p>
-</body>
-</html>`;
+  // Load and process the index template
+  const template = fs.readFileSync(path.join(__dirname, 'templates', 'index.html'), 'utf-8');
+  return eval('`' + template + '`');
 }
 
 // Example usage

@@ -1,13 +1,27 @@
 {
-  "name": "markdown-splitter",
+  "name": "@nrrb/markdown-splitter",
   "version": "1.0.0",
   "description": "Split a Markdown file into multiple linked HTML files with navigation",
   "main": "md-splitter.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nrrb/markdown-splitter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nrrb/markdown-splitter/issues"
+  },
+  "homepage": "https://github.com/nrrb/markdown-splitter#readme",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "bin": {
     "md-split": "./cli.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test:clean && npm run test:split && npm run test:verify",
+    "test:clean": "rm -rf test-output",
+    "test:split": "node -e \"require('./md-splitter.js').splitMarkdownToHtml('README.md', 'test-output', 'Documentation')\"",
+    "test:verify": "test -f test-output/index.html && test -d test-output && find test-output -name '*.html' | grep -q ."
   },
   "keywords": [
     "markdown",
@@ -16,7 +30,7 @@
     "documentation",
     "splitter"
   ],
-  "author": "",
+  "author": "Nicholas Bennett <nicholabennett.work@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "marked": "^4.0.0"

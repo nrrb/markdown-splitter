@@ -24,3 +24,6 @@ coverage/
 # Logs
 logs/
 *.log
+
+# Tests
+test-output/
