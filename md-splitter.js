@@ -9,11 +9,28 @@ marked.setOptions({
   }
 });
 
-// Configure marked renderer for code blocks
+// Configure marked renderer for code blocks and section links
 const renderer = new marked.Renderer();
 renderer.code = function(code, lang) {
   return `<pre class="language-${lang || 'plaintext'}"><code class="language-${lang || 'plaintext'}">${code}</code></pre>`;
 };
+
+// Store the original link renderer
+const originalLinkRenderer = renderer.link.bind(renderer);
+
+// Override the link renderer to handle section links
+renderer.link = function(href, title, text) {
+  if (href.startsWith('#')) {
+    // This is a section link, convert the header text to an ID
+    const headerText = href.slice(1); // Remove the # prefix
+    if (this.sectionIds && this.sectionIds[headerText]) {
+      // If we have a matching section, update the href to point to the HTML file
+      href = this.sectionIds[headerText] + '.html';
+    }
+  }
+  return originalLinkRenderer(href, title, text);
+};
+
 marked.use({ renderer });
 
 /**
@@ -34,6 +51,18 @@ function splitMarkdownToHtml(inputFile, outputDir, baseTitle, options = { syntax
   
   // Parse the markdown to get the tokens
   const tokens = marked.lexer(markdownContent);
+  
+  // Build a map of header text to section IDs
+  const sectionIds = {};
+  tokens.forEach(token => {
+    if (token.type === 'heading') {
+      const id = token.text.toLowerCase().replace(/[^\w]+/g, '-');
+      sectionIds[token.text] = id;
+    }
+  });
+  
+  // Add the section IDs to the renderer for link processing
+  renderer.sectionIds = sectionIds;
   
   // Extract sections and build TOC
   const sections = [];

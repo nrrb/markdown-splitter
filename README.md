@@ -4,6 +4,8 @@ A tool that splits a Markdown file on header tags into a series of rendered HTML
 
 [![npm version](https://badge.fury.io/js/%40beautifullife%2Fmarkdown-splitter.svg)](https://www.npmjs.com/package/@beautifullife/markdown-splitter)
 
+[Usage](#usage)
+
 ## Features
 
 - Split Markdown files into multiple HTML files based on heading tags
